@@ -1,33 +1,69 @@
 import React from "react";
 import { Searchbar } from "react-native-paper";
-import { StatusBar, StyleSheet, SafeAreaView, Text, View } from "react-native";
+import { FlatList } from "react-native";
 import { RestaurantInfoCard } from "../component/restaurant-info.component";
 import styled from "styled-components/native";
-
-const SafeView = styled(SafeAreaView)`
-  flex: 1;
-  margin-top: ${StatusBar.currentHeight}px;
-`
+import { SafeArea } from "../component/Utility/safe-area.component";
 
 const SearchContainer = styled.View`
-  padding: 16px;
-`
+  padding: ${(props) => props.theme.space[3]};
+`;
 const RestaurantListContainer = styled.View`
   flex: 1;
-  padding : 16px;
-  background-color : blue;
+  padding: ${(props) => props.theme.space[3]};
+  background-color: ${(props) => props.theme.colors.bg.primary};
+`;
 
-`
-
+const restaurant = [
+  {
+    name: "Some Restaurant",
+    icon:
+      "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
+    photos: [
+      "https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg",
+    ],
+    address: "100 some random street",
+    isOpenNow: true,
+    rating: 4,
+    isClosedTemporarily: true,
+  },
+  {
+    name: "One Restaurant",
+    icon:
+      "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
+    photos: [
+      "https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg",
+    ],
+    address: "100 some random street",
+    isOpenNow: true,
+    rating: 4,
+    isClosedTemporarily: true,
+  },
+  {
+    name: "Two Restaurant",
+    icon:
+      "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
+    photos: [
+      "https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg",
+    ],
+    address: "100 some random street",
+    isOpenNow: true,
+    rating: 4,
+    isClosedTemporarily: true,
+  },
+];
 export const RestaurantsScreen = () => (
-<SafeView>
+  <SafeArea>
     <SearchContainer>
-    <Searchbar />
+      <Searchbar />
     </SearchContainer>
 
     <RestaurantListContainer>
-      <RestaurantInfoCard/>
+      <FlatList
+        data={restaurant}
+        renderItem={({ item }) => <RestaurantInfoCard item={item} />}
+        keyExtractor={(item) => item.name}
+      />
     </RestaurantListContainer>
-  </SafeView>
+  </SafeArea>
 );
-
