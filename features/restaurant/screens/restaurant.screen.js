@@ -1,69 +1,40 @@
-import React from "react";
-import { Searchbar } from "react-native-paper";
-import { FlatList } from "react-native";
+import React, { useContext } from "react";
+
+import { FlatList, View } from "react-native";
 import { RestaurantInfoCard } from "../component/restaurant-info.component";
 import styled from "styled-components/native";
 import { SafeArea } from "../component/Utility/safe-area.component";
+import { RestaurantsContext } from "../../../Services/restaurant/restaurant.contex";
+import { ActivityIndicator, Colors } from "react-native-paper";
+import { Search } from "../component/search.component";
 
-const SearchContainer = styled.View`
-  padding: ${(props) => props.theme.space[3]};
-`;
 const RestaurantListContainer = styled.View`
   flex: 1;
   padding: ${(props) => props.theme.space[3]};
   background-color: ${(props) => props.theme.colors.bg.primary};
 `;
 
-const restaurant = [
-  {
-    name: "Some Restaurant",
-    icon:
-      "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
-    photos: [
-      "https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg",
-    ],
-    address: "100 some random street",
-    isOpenNow: true,
-    rating: 4,
-    isClosedTemporarily: true,
-  },
-  {
-    name: "One Restaurant",
-    icon:
-      "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
-    photos: [
-      "https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg",
-    ],
-    address: "100 some random street",
-    isOpenNow: true,
-    rating: 4,
-    isClosedTemporarily: true,
-  },
-  {
-    name: "Two Restaurant",
-    icon:
-      "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
-    photos: [
-      "https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg",
-    ],
-    address: "100 some random street",
-    isOpenNow: true,
-    rating: 4,
-    isClosedTemporarily: true,
-  },
-];
-export const RestaurantsScreen = () => (
-  <SafeArea>
-    <SearchContainer>
-      <Searchbar />
-    </SearchContainer>
+export const RestaurantsScreen = () => {
+  const { isLoading, error, restaurants } = useContext(RestaurantsContext);
+  console.log(error);
+  return (
+    <SafeArea>
+      {isLoading && (
+        // eslint-disable-next-line react-native/no-inline-styles
 
-    <RestaurantListContainer>
-      <FlatList
-        data={restaurant}
-        renderItem={({ item }) => <RestaurantInfoCard item={item} />}
-        keyExtractor={(item) => item.name}
-      />
-    </RestaurantListContainer>
-  </SafeArea>
-);
+        <ActivityIndicator animating={true} size={50} color={Colors.blue300} />
+      )}
+
+      <Search />
+      <RestaurantListContainer>
+        <FlatList
+          data={restaurants}
+          renderItem={({ item }) => {
+            return <RestaurantInfoCard restaurant={item} />;
+          }}
+          keyExtractor={(item) => item.name}
+        />
+      </RestaurantListContainer>
+    </SafeArea>
+  );
+};
