@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Keyboard } from "react-native";
 
 import { locationRequest, locationTransform } from "./location.services";
 
@@ -13,7 +14,14 @@ export const LocationContextProvider = ({ children }) => {
   const onSearch = (searchKeyword) => {
     setIsLoading(true);
     setKeyword(searchKeyword);
-    locationRequest(searchKeyword.toLowerCase())
+  };
+
+  useEffect(() => {
+    if (!keyword.length) {
+      // don't do anything
+      return;
+    }
+    locationRequest(keyword.toLowerCase())
       .then(locationTransform)
       .then((result) => {
         setIsLoading(false);
@@ -23,9 +31,8 @@ export const LocationContextProvider = ({ children }) => {
       .catch((err) => {
         setIsLoading(false);
         setError(err);
-        console.log(err);
       });
-  };
+  }, [Keyboard]);
 
   return (
     <LocationContext.Provider

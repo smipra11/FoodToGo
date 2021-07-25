@@ -2,10 +2,12 @@ import React from "react";
 
 import { Text, View } from "react-native";
 
-export const SettingScreen = () => {
+const SettingScreen = () => {
   return (
     <View>
       <Text> Map Screen</Text>
     </View>
   );
 };
+
+export default SettingScreen;
