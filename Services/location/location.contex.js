@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Keyboard } from "react-native";
 
 import { locationRequest, locationTransform } from "./location.services";
 
@@ -32,7 +31,7 @@ export const LocationContextProvider = ({ children }) => {
         setIsLoading(false);
         setError(err);
       });
-  }, [Keyboard]);
+  }, [keyword]);
 
   return (
     <LocationContext.Provider
