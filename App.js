@@ -6,6 +6,7 @@ import { theme } from "./infrastrure/theme/index";
 import { Ionicons } from "@expo/vector-icons";
 import { RestaurantsContextProvider } from "./Services/restaurant/restaurant.contex";
 import { LocationContextProvider } from "./Services/location/location.contex";
+import { FavouritesContextProvider } from "./Services/Favorite/favorite.contex";
 
 import {
   useFonts as useOswald,
@@ -30,11 +31,13 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <LocationContextProvider>
-          <RestaurantsContextProvider>
-            <AppNavigator />
-          </RestaurantsContextProvider>
-        </LocationContextProvider>
+        <FavouritesContextProvider>
+          <LocationContextProvider>
+            <RestaurantsContextProvider>
+              <AppNavigator />
+            </RestaurantsContextProvider>
+          </LocationContextProvider>
+        </FavouritesContextProvider>
       </ThemeProvider>
     </>
   );
