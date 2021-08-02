@@ -13,6 +13,7 @@ import { SvgXml } from "react-native-svg";
 import star from "../../../assets/star";
 import open from "../../../assets/open";
 import { Spacer } from "../component/spacer";
+import { Favourite } from "../../Favorite/favorite.component";
 
 const Title = styled.Text`
   font-family: ${(props) => props.theme.fonts.heading};
@@ -75,6 +76,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const ratingArray = Array.from(new Array(Math.floor(rating)));
   return (
     <RestaurantCard elevation={5}>
+      <Favourite restaurant={restaurant} />
       <RestaurantCardCover key={name} source={{ uri: photos[0] }} />
       <Info>
         <Text variant="label">{name}</Text>
